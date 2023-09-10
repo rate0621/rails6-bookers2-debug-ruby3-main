@@ -1,0 +1,4 @@
+<% @book.book_comments.each do |comment| %>
+  <p><%= comment.user.name %>: <%= comment.content %></p>
+  <%= link_to 'Delete', book_book_comment_path(@book, comment), method: :delete if current_user.id == comment.user_id %>
+<% end %>

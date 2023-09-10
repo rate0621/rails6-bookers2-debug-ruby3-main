@@ -1,0 +1,8 @@
+<% if current_user.favorites.find_by(book_id: book.id) %>
+  <%= link_to 'いいねを外す', favorite_path(id: book.id), method: :delete, remote: true, id: "favorite-button-#{book.id}" %>
+<% else %>
+  <%= link_to 'いいね', favorites_path(book_id: book.id), method: :post, remote: true, id: "favorite-button-#{book.id}" %>
+<% end %>
+<span id="favorite-count-<%= book.id %>">
+  <%= book.favorited_users.count %>
+</span>

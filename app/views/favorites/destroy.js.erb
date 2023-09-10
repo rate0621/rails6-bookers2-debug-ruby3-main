@@ -1,0 +1,2 @@
+document.getElementById("favorite-button-<%= @book.id %>").innerHTML = "<%= escape_javascript(link_to 'いいね', favorites_path(book_id: @book.id), method: :post, remote: true) %>";
+document.getElementById("favorite-count-<%= @book.id %>").innerHTML = "<%= @book.favorited_users.count %>";
