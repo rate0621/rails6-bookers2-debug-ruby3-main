@@ -1,6 +1,6 @@
-<% book_to_use = defined?(book) ? (book || @new_book) : @new_book %>
+<% book_to_use = local_assigns[:book] || @new_book || Book.new %>
 
-<%= form_with model: book_to_use, local:true do |f| %>
+<%= form_with model: book_to_use, local: true do |f| %>
   <div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control book_title' %>
@@ -10,6 +10,6 @@
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
   <div class="form-group">
-    <%= f.submit class: 'btn btn-success' %>
+    <%= f.submit book_to_use.new_record? ? 'Create Book' : 'Update Book', class: 'btn btn-success' %>
   </div>
 <% end %>
