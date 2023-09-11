@@ -33,17 +33,16 @@
 
         </tr>
       </table>
-      <%= render 'comments' %>
       <h3>Comments:</h3>
-      <% @book.book_comments.each do |comment| %>
-        <p><%= comment.user.name %>: <%= comment.content %></p>
-        <%= link_to 'Delete', book_book_comment_path(@book, comment), method: :delete if current_user.id == comment.user_id %>
-      <% end %>
+      <%= render 'comments' %>
 
       <h3>Add a new comment:</h3>
       <%= form_with(model: [ @book, @book.book_comments.build ], local: true) do |f| %>
-        <%= f.text_field :content %>
-        <%= f.submit "Comment" %>
+        <div class="form-group">
+          <%= f.label :content, "Add a new comment:" %>
+          <%= f.text_field :content, class: 'form-control', value: "" %>
+        </div>
+        <%= f.submit "Comment", class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>

@@ -2,7 +2,8 @@
 class BookCommentsController < ApplicationController
   def create
     @book = Book.find(params[:book_id])
-    @comment = @book.book_comments.new(comment_params)
+    # @comment = @book.book_comments.new(comment_params)
+    @comment = @book.book_comments.build(comment_params)
     @comment.user = current_user
 
     if @comment.save
@@ -23,6 +24,13 @@ class BookCommentsController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
   end
+
+  def show
+    @book = Book.find(params[:id])
+    # @user = @book.user
+    @comment = @book.book_comments.build
+  end
+
 
   private
 
