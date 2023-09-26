@@ -24,7 +24,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @books = Book.popular_this_week
     @book = Book.new
   end
 

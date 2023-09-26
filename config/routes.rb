@@ -27,4 +27,9 @@ Rails.application.routes.draw do
 
   get 'search', to: 'searches#search'
 
+  resources :messages, only: [:new, :create, :index] do
+    collection do
+      get 'select_recipient'
+    end
+  end
 end

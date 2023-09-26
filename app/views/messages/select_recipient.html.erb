@@ -1,0 +1,9 @@
+<h1>Select a recipient</h1>
+
+<ul>
+  <% @mutual_followers.each do |user| %>
+    <li>
+      <%= link_to user.name, new_message_path(recipient_id: user.id) %>
+    </li>
+  <% end %>
+</ul>

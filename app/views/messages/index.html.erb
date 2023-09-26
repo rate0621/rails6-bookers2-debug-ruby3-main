@@ -1,0 +1,5 @@
+<%= link_to "New Message", select_recipient_messages_path, class: "btn btn-primary" %>
+
+<% @messages.each do |message| %>
+  <p><%= message.sender.name %>: <%= message.content %></p>
+<% end %>
