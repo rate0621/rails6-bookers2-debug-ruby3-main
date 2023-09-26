@@ -1,22 +1,18 @@
 class MessagesController < ApplicationController
+
   def create
-    @receiver = User.find(params[:receiver_id])
+    @message = Message.new(message_params)
+    @message.sender_id = current_user.id
+    @receiver = User.find(params[:message][:receiver_id])
 
-    # 相互にフォローしているかの確認
-    if current_user.following?(@receiver) && @receiver.following?(current_user)
-      @message = current_user.sent_messages.build(message_params)
-      @message.receiver = @receiver
-
-      if @message.save
-        # 保存に成功した場合の処理
-        redirect_to messages_path(receiver_id: @receiver.id)
-      else
-        # 保存に失敗した場合の処理
-        render :new
-      end
+    if @message.save
+      puts 'success'
+      # メッセージの保存に成功した場合の処理
+      redirect_to messages_path, notice: 'Message was successfully sent.'
     else
-      # 相互にフォローしていない場合の処理
-      redirect_to root_path, alert: "You can only send messages to mutual followers."
+puts @message.errors.full_messages
+      # メッセージの保存に失敗した場合の処理
+      render :new
     end
   end
 
@@ -41,11 +37,16 @@ class MessagesController < ApplicationController
     @recipient = User.find(params[:recipient_id]) if params[:recipient_id].present?
   end
 
+  def conversation
+    @partner = User.find(params[:id])
+    @messages = Message.where(sender_id: [current_user.id, @partner.id], receiver_id: [current_user.id, @partner.id]).order(created_at: :asc)
+  end
+
 
   private
 
   def message_params
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:content, :receiver_id)
   end
 
 end

@@ -1,0 +1,9 @@
+<h2>Conversation with <%= @partner.name %></h2>
+
+<ul>
+  <% @messages.each do |message| %>
+    <li>
+      <strong><%= message.sender.name %>:</strong> <%= message.body %>
+    </li>
+  <% end %>
+</ul>

@@ -25,6 +25,10 @@
           <% end %>
           <%= @book.favorited_users.count %>
           </td>
+          <td>
+            view数：<%= @book.views_count %>
+          </td>
+
         </td>
         <% if current_user.id == @book.user_id %>
           <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>

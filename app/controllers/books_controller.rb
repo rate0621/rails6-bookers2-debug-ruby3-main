@@ -19,6 +19,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    @book.increment!(:views_count)
     @user = @book.user
     # @comment = @book.book_comments.build
   end
